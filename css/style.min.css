@@ -345,7 +345,7 @@ body {
 
 .copy-btn {
   color: #fff;
-  padding: 10px 20px;
+  padding: 6px 20px;
   background-color: #2acfcf;
   border-radius: 5px;
   -webkit-transition: all .2s linear;
@@ -781,11 +781,25 @@ body {
     padding-right: 20px;
   }
 
-  .original-link {
-    width: 90%;
-    overflow: hidden;
-  }
-
+  .original-link{
+        width: 90%;
+        text-align: center;
+        background-color: #2acfcf;
+        overflow-x: scroll;
+        margin: 0 auto;
+        color: #ffffff;
+        padding: 8px 10px;
+        border-radius: 4px;
+    }
+    .block{
+        margin-top: 10px;
+    }
+    .shortened-link{
+        width: 100%;
+        padding: 8px 10px;
+        background-color: #eeeeee;
+        border-radius: 4px;
+    }
   .statistics-intro-subtitle {
     width: 80%;
   }
