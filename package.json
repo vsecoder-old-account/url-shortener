@@ -1,0 +1,16 @@
+{
+  "name": "url-shortener2",
+  "version": "22.11.2020",
+  "description": "url-shortener2",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "author": "vsevolodhtml",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "shortid": "^2.2.16"
+  }
+}
