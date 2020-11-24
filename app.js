@@ -13,9 +13,6 @@ app.use(express.static(__dirname + '/public'));
 
 //редирект с http на https
 app.all('*', function(req, res, next) {
-	//if (req.protocol == 'http' && req.get('host') != '127.0.0.1:' + port && req.get('host') != 'localhost:' + port) {
-	//	res.redirect('https://' + req.headers.host + req.url);
-	//}
 	var ip = (req.headers['x-forwarded-for'] || '').split(',')[0] || req.connection.remoteAddress;
 	var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
 	console.log("IP: " + ip + " URL: "  + fullUrl);
@@ -26,13 +23,14 @@ app.all('*', function(req, res, next) {
 app.get('/', function(req, res) {
   res.render('index');
 });
+
 // API
 app.get('/api', function(req, res) {
   let href = req.query.url;
   let regexp = /^(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
   let rnd = shortid.generate();
   if (href == undefined || regexp.test(href) == false) {
-    res.json('false');
+    res.json('no valid url');
   } else {
     fs.open('urls/' + rnd + '.txt', 'w', (err, data) => {
       if(err) throw err;
@@ -44,6 +42,7 @@ app.get('/api', function(req, res) {
   }
 });
 
+//redirect
 app.get('/:code', function(req, res, next) {
   let href = req.params.code;
   if (href == 'favicon.ico') {
@@ -51,13 +50,33 @@ app.get('/:code', function(req, res, next) {
   }
   console.log(href);
   if (href == undefined) {
-    res.json('false');
+    res.json('please, write url');
   } else {
     fs.readFile('urls/' + href + '.txt', 'utf8', (err, data) => {
-      if(err) {res.json('false');}
+      if(err) {res.json('no search file =(');}
       else {
         console.log(data);
         res.redirect(data);
+      }
+    });
+  }
+});
+
+//info
+app.get('/i/:code', function(req, res, next) {
+  let href = req.params.code;
+  if (href == 'favicon.ico') {
+    href = '123';
+  }
+  console.log(href);
+  if (href == undefined) {
+    res.json('null');
+  } else {
+    fs.readFile('urls/' + href + '.txt', 'utf8', (err, data) => {
+      if(err) {res.json('null');}
+      else {
+        console.log(data);
+        res.json(data);
       }
     });
   }
