@@ -24,6 +24,11 @@ app.get('/', function(req, res) {
   res.render('index');
 });
 
+//домашняя страница
+app.get('/dev', function(req, res) {
+  res.redirect('https://vsevolodhtml.ru');
+});
+
 // API
 app.get('/api', function(req, res) {
   let href = req.query.url;
